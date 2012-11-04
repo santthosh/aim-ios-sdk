@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'aim' target in the 'aim' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
+
+#define SDK_VERSION @"0.1"
+
+#define URL_BASE @"https://api.appinmap.com"
+
+#define START_SESSION @"/session/start"
+#define END_SESSION @"/session/end"
+#define SEND_BEACON @"/session/beacon"
+#define MESSAGING_TOKEN @"/messaging_token"
