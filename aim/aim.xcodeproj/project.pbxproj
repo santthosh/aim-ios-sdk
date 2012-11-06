@@ -25,6 +25,8 @@
 		53D8F29E1643B63D0019EC51 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D8F29D1643B63D0019EC51 /* Default@2x.png */; };
 		53D8F2A01643B63D0019EC51 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D8F29F1643B63D0019EC51 /* Default-568h@2x.png */; };
 		53D8F2A51643B64E0019EC51 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D8F2A41643B64E0019EC51 /* GHUnitIOS.framework */; };
+		53DD4AEA16483223009E7FEC /* MessagingTokenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DD4AE916483223009E7FEC /* MessagingTokenTestCase.m */; };
+		53DD4AEE164880D9009E7FEC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DD4AED164880D9009E7FEC /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,10 @@
 		53D8F29D1643B63D0019EC51 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		53D8F29F1643B63D0019EC51 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		53D8F2A41643B64E0019EC51 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = dependencies/GHUnitIOS.framework; sourceTree = "<group>"; };
+		53DD4AE816483223009E7FEC /* MessagingTokenTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingTokenTestCase.h; path = Classes/MessagingTokenTestCase.h; sourceTree = "<group>"; };
+		53DD4AE916483223009E7FEC /* MessagingTokenTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingTokenTestCase.m; path = Classes/MessagingTokenTestCase.m; sourceTree = "<group>"; };
+		53DD4AEC164880D9009E7FEC /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		53DD4AED164880D9009E7FEC /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,8 @@
 			children = (
 				53623BAE16460D6600FF723D /* AIMJSONKit.h */,
 				53623BA716460A2300FF723D /* AIMJSONKit.m */,
+				53DD4AEC164880D9009E7FEC /* NSData+Base64.h */,
+				53DD4AED164880D9009E7FEC /* NSData+Base64.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -187,6 +195,8 @@
 			children = (
 				53623BD6164633C500FF723D /* SessionTestCase.h */,
 				53623BD7164633C500FF723D /* SessionTestCase.m */,
+				53DD4AE816483223009E7FEC /* MessagingTokenTestCase.h */,
+				53DD4AE916483223009E7FEC /* MessagingTokenTestCase.m */,
 				53D8F2901643B63D0019EC51 /* Supporting Files */,
 			);
 			path = UnitTests;
@@ -294,6 +304,7 @@
 				53A8C5101644138D00E78CA2 /* AppInMap.m in Sources */,
 				53623BA816460A2300FF723D /* AIMJSONKit.m in Sources */,
 				53623BCC164616A600FF723D /* AIMDevice.m in Sources */,
+				53DD4AEE164880D9009E7FEC /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +314,7 @@
 			files = (
 				53D8F2961643B63D0019EC51 /* main.m in Sources */,
 				53623BD8164633C500FF723D /* SessionTestCase.m in Sources */,
+				53DD4AEA16483223009E7FEC /* MessagingTokenTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

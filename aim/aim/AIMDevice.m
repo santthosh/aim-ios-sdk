@@ -20,6 +20,7 @@
 #include <sys/sysctl.h>
 #include <net/if.h>
 #include <net/if_dl.h>
+#import <sys/utsname.h>
 
 @implementation AIMDevice
 
@@ -165,5 +166,24 @@
 #endif
     return nil;
 }
+
++(NSString *)getDeviceModel {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+}
+
++(NSString *)getUserAgent {
+    __block NSString *userAgent = nil;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        /* Do somthing here with UIKit here */
+        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+        userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    });
+
+    return userAgent;
+}
+
 
 @end

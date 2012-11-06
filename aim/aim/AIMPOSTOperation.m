@@ -7,6 +7,7 @@
 //
 
 #import "AIMPOSTOperation.h"
+#import "NSData+Base64.h"
 
 @implementation AIMPOSTOperation
 
@@ -79,6 +80,13 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:connectionURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.0];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:body];
+    
+    NSString* encodedUsername = [[username dataUsingEncoding:NSUTF8StringEncoding] aimBase64EncodedString];
+    NSString* encodedPassword = [[password dataUsingEncoding:NSUTF8StringEncoding] aimBase64EncodedString];
+    
+    NSString* headerValue = [NSString stringWithFormat:@"Basic %@:%@", encodedUsername, encodedPassword];
+    [request setValue:@"Authorization" forHTTPHeaderField:headerValue];
+    
     [request setValue:@"application/json" forHTTPHeaderField:@"content-type"];
     connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }

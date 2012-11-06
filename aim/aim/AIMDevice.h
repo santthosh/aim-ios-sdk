@@ -18,4 +18,8 @@
 
 +(NSString *)getIdentifierForAdvertiser;
 
++(NSString *)getDeviceModel;
+
++(NSString *)getUserAgent;
+
 @end

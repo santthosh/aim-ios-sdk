@@ -11,12 +11,28 @@
 
 @interface AppInMap : NSObject
 
-@property (nonatomic,strong) NSArray *tags;
+#pragma mark - Sessions
 
+// Start the app in map session
 +(void)startSession:(NSString *)applicationId secret:(NSString *)secret;
 
+// Set the location parameters for the app in map analytics
 +(void)setLatitude:(CGFloat)latitude longitude:(CGFloat)longitude accuracy:(CGFloat)accuracy;
 
+// End the app in map session
 +(void)endSession;
+
+#pragma mark - Push Notification
+
+// Register the device token for push notifications
++(void)registerDeviceToken:(NSData *)data;
+
+#pragma mark - Tags
+
+// Add a tag to the device tokens
++(void)addTags:(NSArray *)tags;
+
+// Add tag
++(void)addTag:(NSString *)tag;
 
 @end
