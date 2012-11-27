@@ -18,6 +18,8 @@
 
 +(AppInMap *)sharedInstance;
 
+@property (nonatomic,assign) BOOL testMode;
+
 @property (nonatomic,strong) NSString *applicationId;
 
 @property (nonatomic,strong) NSString *applicationSecret;
@@ -44,11 +46,13 @@
 
 @property (nonatomic, assign) UIBackgroundTaskIdentifier endSessionTask;
 
+-(void)sendBeacon:(NSString *)beaconURL;
+
 @end
 
 @implementation AppInMap
 
-@synthesize applicationId,applicationSecret,bundleId,sdkVersion,appVersion,tags,queue,sessionId,latitude,longitude,accuracy,deviceSpecs,endSessionTask;
+@synthesize testMode,applicationId,applicationSecret,bundleId,sdkVersion,appVersion,tags,queue,sessionId,latitude,longitude,accuracy,deviceSpecs,endSessionTask;
 
 #pragma mark - Class Methods
 
@@ -97,6 +101,8 @@
     manager.latitude = latitude;
     manager.longitude = longitude;
     manager.accuracy = accuracy;
+    
+    [manager sendBeacon:nil];
 }
 
 + (NSString *)uuid {
@@ -110,6 +116,11 @@
     AppInMap *manager = [AppInMap sharedInstance];
     
     [manager registerMessagingToken:data];
+}
+
++(void)setTestMode:(BOOL)testMode {
+    AppInMap *manager = [AppInMap sharedInstance];
+    manager.testMode = testMode;
 }
 
 // Add a tag to the device tokens
@@ -171,6 +182,8 @@
     [dictionary setObject:deviceIds forKey:@"deviceIds"];
     
     [dictionary setObject:[NSNumber numberWithInt:0] forKey:@"platform"];
+    
+    [dictionary setObject:[NSNumber numberWithBool:self.testMode] forKey:@"testMode"];
     
     if(tags && [tags count]) {
         [dictionary setObject:tags forKey:@"tags"];
@@ -271,6 +284,8 @@
     [dictionary setObject:deviceIds forKey:@"deviceIds"];
     
     [dictionary setObject:[NSNumber numberWithInt:0] forKey:@"platform"];
+    
+    [dictionary setObject:[NSNumber numberWithBool:self.testMode] forKey:@"testMode"];
     
     if(tags && [tags count]) {
         [dictionary setObject:tags forKey:@"tags"];

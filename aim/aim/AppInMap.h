@@ -27,7 +27,11 @@
 // Register the device token for push notifications
 +(void)registerDeviceToken:(NSData *)data;
 
-#pragma mark - Tags
+#pragma mark - TestMode and Tags
+
+// Set the TestMode if you are using the app in development mode, set this before starting the session
+// Or registering Device Token. Set this to false when building for AdHoc or AppStore modes
++(void)setTestMode:(BOOL)testMode;
 
 // Add a tag to the device tokens
 +(void)addTags:(NSArray *)tags;

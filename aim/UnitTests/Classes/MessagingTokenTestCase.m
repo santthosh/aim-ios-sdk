@@ -16,6 +16,8 @@
  */
 
 -(void)testMessagingToken {
+    [AppInMap setTestMode:YES];
+    
     [AppInMap startSession:@"11d35127-ae92-4743-8466-3df0598c156b" secret:@"0094cd31-8815-4ffa-8045-568d4a8ba79f"];
     
     [NSThread sleepForTimeInterval:10];
