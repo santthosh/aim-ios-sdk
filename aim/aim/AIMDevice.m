@@ -178,7 +178,9 @@ static NSString* UserAgent = nil;
 
 -(NSString *)getUserAgent {
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    UserAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    
+    return UserAgent;
 }
 
 +(NSString *)getUserAgent {

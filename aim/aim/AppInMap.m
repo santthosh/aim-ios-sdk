@@ -257,51 +257,58 @@
      curl --user "098c27f2-383b-4cad-909b-e63f28387a44":"008b06ef-0a48-4c78-8261-5570fd927ffb" -X POST -H "Content-Type: application/json; charset=UTF-8" -d  '{"device_token":"9f87d9dc-e91a-48a6-9a4c-0e65ac0ba2cc","applicationId":"098c27f2-383b-4cad-909b-e63f28387a44","bundleId":"com.dinakaran.mobile.iphone","deviceId":["ODIN1-2216f4f9-60da-4478-9fb6-9c4ca778c57a"],"deviceIdType":1,"time":1351380896,"appVersion":"1.02.1.02","sdkVersion":"0.1","tags":[]}' http://localhost:8888/messaging_token
      */
 
-    NSString *device_token =  [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    NSString *device_token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:device_token forKey:@"device_token"];
-    [dictionary setObject:applicationId forKey:@"applicationId"];
-    [dictionary setObject:bundleId forKey:@"bundleId"];
-    [dictionary setObject:[NSNumber numberWithLongLong:([[NSDate date] timeIntervalSince1970] * 1000)] forKey:@"time"];
-    [dictionary setObject:appVersion forKey:@"appVersion"];
-    [dictionary setObject:sdkVersion forKey:@"sdkVersion"];
+    if(!device_token)
+        device_token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     
-    NSMutableArray *deviceIds = [NSMutableArray array];
-    NSString *udid = [AIMDevice getDeviceHashedUDID];
-    if(udid)
-        [deviceIds addObject:[NSString stringWithFormat:@"UDID=%@",udid]];
-    NSString *odin1 = [AIMDevice getDeviceODIN1];
-    if(odin1)
-        [deviceIds addObject:[NSString stringWithFormat:@"ODIN1=%@",odin1]];
-    NSString *idv = [AIMDevice getIdentifierForVendor];
-    if(idv)
-        [deviceIds addObject:[NSString stringWithFormat:@"IDV=%@",idv]];
-    NSString *ida = [AIMDevice getIdentifierForAdvertiser];
-    if(ida)
-        [deviceIds addObject:[NSString stringWithFormat:@"IDA=%@",ida]];
-    
-    [dictionary setObject:deviceIds forKey:@"deviceIds"];
-    
-    [dictionary setObject:[NSNumber numberWithInt:0] forKey:@"platform"];
-    
-    [dictionary setObject:[NSNumber numberWithBool:self.testMode] forKey:@"testMode"];
-    
-    if(tags && [tags count]) {
-        [dictionary setObject:tags forKey:@"tags"];
-    } else {
-        [dictionary setObject:[NSArray array] forKey:@"tags"];
+    if(device_token) {
+        device_token = [device_token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setObject:device_token forKey:@"device_token"];
+        [dictionary setObject:applicationId forKey:@"applicationId"];
+        [dictionary setObject:bundleId forKey:@"bundleId"];
+        [dictionary setObject:[NSNumber numberWithLongLong:([[NSDate date] timeIntervalSince1970] * 1000)] forKey:@"time"];
+        [dictionary setObject:appVersion forKey:@"appVersion"];
+        [dictionary setObject:sdkVersion forKey:@"sdkVersion"];
+        
+        NSMutableArray *deviceIds = [NSMutableArray array];
+        NSString *udid = [AIMDevice getDeviceHashedUDID];
+        if(udid)
+            [deviceIds addObject:[NSString stringWithFormat:@"UDID=%@",udid]];
+        NSString *odin1 = [AIMDevice getDeviceODIN1];
+        if(odin1)
+            [deviceIds addObject:[NSString stringWithFormat:@"ODIN1=%@",odin1]];
+        NSString *idv = [AIMDevice getIdentifierForVendor];
+        if(idv)
+            [deviceIds addObject:[NSString stringWithFormat:@"IDV=%@",idv]];
+        NSString *ida = [AIMDevice getIdentifierForAdvertiser];
+        if(ida)
+            [deviceIds addObject:[NSString stringWithFormat:@"IDA=%@",ida]];
+        
+        [dictionary setObject:deviceIds forKey:@"deviceIds"];
+        
+        [dictionary setObject:[NSNumber numberWithInt:0] forKey:@"platform"];
+        
+        [dictionary setObject:[NSNumber numberWithBool:self.testMode] forKey:@"testMode"];
+        
+        if(tags && [tags count]) {
+            [dictionary setObject:tags forKey:@"tags"];
+        } else {
+            [dictionary setObject:[NSArray array] forKey:@"tags"];
+        }
+        
+        if(deviceSpecs && [deviceSpecs count]) {
+            [dictionary setObject:deviceSpecs forKey:@"deviceSpecs"];
+        } else {
+            [dictionary setObject:[NSArray array] forKey:@"deviceSpecs"];
+        }
+        
+        AIMPOSTOperation *operation = [[AIMPOSTOperation alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/messaging_token",URL_BASE]] body:[dictionary JSONData] username:applicationId password:applicationSecret];
+        [operation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:NULL];
+        [queue addOperation:operation];
     }
-    
-    if(deviceSpecs && [deviceSpecs count]) {
-        [dictionary setObject:deviceSpecs forKey:@"deviceSpecs"];
-    } else {
-        [dictionary setObject:[NSArray array] forKey:@"deviceSpecs"];
-    }
-    
-    AIMPOSTOperation *operation = [[AIMPOSTOperation alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/messaging_token",URL_BASE]] body:[dictionary JSONData] username:applicationId password:applicationSecret];
-    [operation addObserver:self forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:NULL];
-    [queue addOperation:operation];
 }
 
 #pragma mark - App state handling
