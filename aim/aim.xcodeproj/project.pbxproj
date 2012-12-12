@@ -6,6 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		533ECC841678D51D00A4B56F /* Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 533ECC871678D51D00A4B56F /* Build configuration list for PBXAggregateTarget "Universal" */;
+			buildPhases = (
+				533ECC8B1678D52B00A4B56F /* Build */,
+				533ECC9D1678D73100A4B56F /* Lipo */,
+				533ECC9E1678D74A00A4B56F /* Bundle */,
+			);
+			dependencies = (
+				533ECC8A1678D52700A4B56F /* PBXTargetDependency */,
+			);
+			name = Universal;
+			productName = Universal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		53623BA816460A2300FF723D /* AIMJSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53623BA716460A2300FF723D /* AIMJSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		53623BCC164616A600FF723D /* AIMDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 53623BCB164616A600FF723D /* AIMDevice.m */; };
@@ -30,6 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		533ECC891678D52700A4B56F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D8F26A1643B5270019EC51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53D8F2721643B5270019EC51;
+			remoteInfo = aim;
+		};
 		53623BD9164634D300FF723D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 53D8F26A1643B5270019EC51 /* Project object */;
@@ -277,6 +301,7 @@
 			targets = (
 				53D8F2721643B5270019EC51 /* aim */,
 				53D8F2871643B63D0019EC51 /* UnitTests */,
+				533ECC841678D51D00A4B56F /* Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +319,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		533ECC8B1678D52B00A4B56F /* Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Build;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/scripts/compile.sh";
+		};
+		533ECC9D1678D73100A4B56F /* Lipo */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lipo;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/scripts/lipo.sh";
+		};
+		533ECC9E1678D74A00A4B56F /* Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Bundle;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/scripts/bundle.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53D8F26F1643B5270019EC51 /* Sources */ = {
@@ -321,6 +391,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		533ECC8A1678D52700A4B56F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53D8F2721643B5270019EC51 /* aim */;
+			targetProxy = 533ECC891678D52700A4B56F /* PBXContainerItemProxy */;
+		};
 		53623BDA164634D300FF723D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 53D8F2721643B5270019EC51 /* aim */;
@@ -340,6 +415,26 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		533ECC851678D51D00A4B56F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_DESTINATION_DIR = "$(SRCROOT)/Library";
+				LIBRARY_TARGET_NAME = aim;
+				PRODUCT_DESTINATION_DIR = "${SRCROOT}/Products";
+				PRODUCT_NAME = Aim;
+			};
+			name = Debug;
+		};
+		533ECC861678D51D00A4B56F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_DESTINATION_DIR = "$(SRCROOT)/Library";
+				LIBRARY_TARGET_NAME = aim;
+				PRODUCT_DESTINATION_DIR = "${SRCROOT}/Products";
+				PRODUCT_NAME = Aim;
+			};
+			name = Release;
+		};
 		53D8F27F1643B5270019EC51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -394,6 +489,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "aim/aim-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_DESTINATION_DIR = "$(SRCROOT)/Library";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -408,6 +504,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "aim/aim-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_DESTINATION_DIR = "$(SRCROOT)/Library";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,7 +516,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/dependencies\"",
@@ -433,6 +530,7 @@
 				OTHER_CFLAGS = "-ObjC";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -442,7 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/dependencies\"",
@@ -459,6 +557,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -467,6 +566,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		533ECC871678D51D00A4B56F /* Build configuration list for PBXAggregateTarget "Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				533ECC851678D51D00A4B56F /* Debug */,
+				533ECC861678D51D00A4B56F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		53D8F26D1643B5270019EC51 /* Build configuration list for PBXProject "aim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -172,6 +172,7 @@
         NSString* statusError  = [NSString stringWithFormat:NSLocalizedString(@"HTTP Error: %ld", nil), statusCode];
         NSDictionary* userInfo = [NSDictionary dictionaryWithObject:statusError forKey:NSLocalizedDescriptionKey];
         error = [[NSError alloc] initWithDomain:@"AIMPOSTOperation"code:statusCode userInfo:userInfo];
+        NSLog(@"AIM Error: %@",[error localizedDescription]);
         [self done];
     }
 }

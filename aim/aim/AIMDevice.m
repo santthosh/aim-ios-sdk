@@ -22,6 +22,8 @@
 #include <net/if_dl.h>
 #import <sys/utsname.h>
 
+static NSString* UserAgent = nil;
+
 @implementation AIMDevice
 
 #pragma mark - Message Digests
@@ -174,15 +176,18 @@
     return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
-+(NSString *)getUserAgent {
-    __block NSString *userAgent = nil;
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        /* Do somthing here with UIKit here */
-        UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-        userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    });
+-(NSString *)getUserAgent {
+    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+}
 
-    return userAgent;
++(NSString *)getUserAgent {
+    if(!UserAgent) {
+        AIMDevice *device = [[AIMDevice alloc] init];
+        [device performSelectorOnMainThread:@selector(getUserAgent) withObject:nil waitUntilDone:YES];
+    }
+
+    return UserAgent;
 }
 
 
